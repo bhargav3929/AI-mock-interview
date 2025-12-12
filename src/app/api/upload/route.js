@@ -15,7 +15,8 @@ export async function POST(req) {
         // Upload the file to Vercel Blob (public access)
         const blob = await put(file.name, file, {
             access: 'public',
-            token: process.env.BLOB_READ_WRITE_TOKEN // Ensure this env var is set
+            token: process.env.BLOB_READ_WRITE_TOKEN, // Ensure this env var is set
+            addRandomSuffix: true // Prevent 'blob already exists' error
         });
 
         console.log("File uploaded successfully:", blob.url);

@@ -77,9 +77,9 @@ export default function ChatInterface() {
       });
       const uploadData = await uploadRes.json();
 
-      if (uploadData.text) {
-        // 2. Send extracted text to Chat context silently or explicitly
-        const hiddenContent = `[User uploaded resume ${file.name}. Extracted content: ${uploadData.text}]`;
+      if (uploadData.fileUrl) {
+        // 2. Send File URL to Chat context
+        const hiddenContent = `[User uploaded resume: ${uploadData.fileUrl}]`;
 
         // We replace the "Uploading..." message with a confirmation
         setMessages(prev => {
@@ -110,7 +110,7 @@ export default function ChatInterface() {
         }
 
       } else {
-        throw new Error('OCR failed');
+        throw new Error('Upload failed: No URL returned');
       }
 
     } catch (error) {
